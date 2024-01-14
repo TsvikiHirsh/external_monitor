@@ -6,22 +6,23 @@ import os
 """
 # External monitor
 """
-with st.sidebar:
-    def refresh():
-        st.session_state.data = pandas.read_html("https://wnr-web.lanl.gov/NIST/index.html",parse_dates=True,index_col=0)[0]
+# with st.sidebar:
+def refresh():
+    st.session_state.data = pandas.read_html("https://wnr-web.lanl.gov/NIST/index.html",parse_dates=True,index_col=0)[0]
+    st.session_state.data = st.session_state.data.set_index("run/counter")
 
-    st.button("Refresh",on_click=refresh)
+st.button("Refresh",on_click=refresh)
 
-    plot_type = st.selectbox("plot type",["line","area","bar","scatter"],index=0)
+plot_type = st.selectbox("plot type",["line","area","bar","scatter"],index=0)
 
 
-    if "data" in st.session_state:
+if "data" in st.session_state:
 
-        x_param = st.multiselect("x param",st.session_state.data.columns,default=["run/counter"],max_selections=1)
+    x_param = st.multiselect("x param",st.session_state.data.columns,default=["run/counter"],max_selections=1)
 
-        y_param = st.multiselect("y param",st.session_state.data.columns,default=["stats/total_counts"])
+    y_param = st.multiselect("y param",st.session_state.data.columns,default=["stats/total_counts"])
 
-        x_param = x_param[0] if x_param else None
+    x_param = x_param[0] if x_param else None
     
 if "data" in st.session_state:
     match plot_type:
