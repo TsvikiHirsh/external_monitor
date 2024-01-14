@@ -18,7 +18,7 @@ plot_type = st.selectbox("plot type",["line","area","bar","scatter"],index=0)
 
 if "data" in st.session_state:
 
-    x_param = st.multiselect("x param",st.session_state.data.columns,default=["run/counter"],max_selections=1)
+    x_param = st.multiselect("x param",st.session_state.data.columns,max_selections=1)
 
     y_param = st.multiselect("y param",st.session_state.data.columns,default=["stats/total_counts"])
 
