@@ -12,7 +12,7 @@ def refresh():
     if "run/counter" in st.session_state.data.columns:
         st.session_state.data = st.session_state.data.set_index("run/counter")
     if "run/start_time" in st.session_state.data.columns:
-        st.session_state.data["start_time"] = pandas.to_datetime(st.session_state.data["start_time"])
+        st.session_state.data["start_time"] = pandas.to_datetime(st.session_state.data["run/start_time"])
 
 st.button("Refresh",on_click=refresh)
 
