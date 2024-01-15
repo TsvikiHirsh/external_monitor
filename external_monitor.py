@@ -9,7 +9,10 @@ import os
 # with st.sidebar:
 def refresh():
     st.session_state.data = pandas.read_html("https://wnr-web.lanl.gov/NIST/index.html",parse_dates=True,index_col=0)[0]
-    # st.session_state.data = st.session_state.data.set_index("run/counter")
+    if "run/counter" in st.session_state.data.columns:
+        st.session_state.data = st.session_state.data.set_index("run/counter")
+    if "run/start_time" in st.session_state.data.columns:
+        st.session_state.data["start_time"] = pandas.at_datetime(st.session_state.data["start_time"].str.replace("T"," "))
 
 st.button("Refresh",on_click=refresh)
 
