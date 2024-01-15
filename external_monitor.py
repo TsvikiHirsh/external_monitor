@@ -33,6 +33,8 @@ if "data" in st.session_state:
         case "bar":
             st.bar_chart(data=st.session_state.data,x=x_param, y=y_param, use_container_width=True)
         case "scatter":
-            st.scatter_chart(data=st.session_state.data,x=x_param, y=y_param, use_container_width=True)
+            c_param = st.multiselect("c param",st.session_state.data.columns)
+            c_param = c_param[0] if c_param else None
+            st.scatter_chart(data=st.session_state.data,x=x_param, y=y_param, color=c_param,use_container_width=True)
 
     st.dataframe(st.session_state.data)
