@@ -14,11 +14,9 @@ def refresh():
     if "run/start_time" in st.session_state.data.columns:
         st.session_state.data["start_time"] = pandas.to_datetime(st.session_state.data["run/start_time"])
 
-col1, col2 = st.columns(2)
-with col1:
-    st.button("Refresh",on_click=refresh)
-with col2:
-    plot_type = st.selectbox("plot type",["line","area","bar","scatter"],index=0)
+st.button("Refresh",on_click=refresh)
+
+plot_type = st.selectbox("plot type",["line","area","bar","scatter"],index=0)
 
 
 if "data" in st.session_state:
@@ -38,7 +36,7 @@ if "data" in st.session_state:
         case "bar":
             st.bar_chart(data=st.session_state.data,x=x_param, y=y_param, use_container_width=True)
         case "scatter":
-            c_param = st.multiselect("c param",st.session_state.data.columns)
+            c_param = st.multiselect("c param",st.session_state.data.columns,max_selections=1)
             c_param = c_param[0] if c_param else None
             st.scatter_chart(data=st.session_state.data,x=x_param, y=y_param, color=c_param,use_container_width=True)
 
